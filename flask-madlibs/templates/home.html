@@ -1,0 +1,19 @@
+{% extends 'base.html'%} {% block content %}
+<h1>Welcome to Madlibs!</h1>
+<p>Complete all fields below to see your own personal story!</p>
+<div id="input-div">
+<form action="/story">
+  <label for="place">Place:</label>
+  <input type="text" name="place" placeholder="Enter a place" />
+  <label for="noun">Noun:</label>
+  <input type="text" name="noun" placeholder="Enter a Noun" />
+  <label for="verb">Verb:</label>
+  <input type="text" name="verb" placeholder="Enter a verb" />
+  <label for="adjective">Adjective:</label>
+  <input type="text" name="adjective" placeholder="Enter an adjective" />
+  <label for="plural_noun">Plural Noun:</label>
+  <input type="text" name="plural_noun" placeholder="Enter a plural noun" />
+  <button>Create my story!</button>
+</form>
+</div>
+{% endblock %}
