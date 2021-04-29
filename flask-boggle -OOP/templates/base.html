@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!-- Dice by Edward Boatman from the Noun Project -->
+    <link rel="shortcut icon" href="/static/Images/noun_Dice_454.png" />
+    <link
+      href="http://fonts.cdnfonts.com/css/nbp-sydnie2-scoreboard"
+      rel="stylesheet"
+    />
+    <link rel="preconnect" href="https://fonts.gstatic.com" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Permanent+Marker&family=Righteous&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="/static/app.css" />
+    <title>Boggle</title>
+  </head>
+  <body>
+    
+    <div id="game-over-modal" class="hidden">
+      <div>
+        <div>
+          <h1>Time's Up!</h1>
+        </div>
+        <div id="high-score-container">
+          <h3 id="high-score-msg" class="hidden">congrats, you beat your highscore!</h3>
+        </div>
+        <div>
+          <span id="score-msg" class="success-score"
+            >YOUR SCORE : <span id="msg-score"> </span></span
+          >
+        </div>
+      </div>
+      <div id="button-container">
+        <form method="GET" action="/">
+          <button id="modal-button">Play Again</button>
+        </form>
+      </div>
+    </div>
+    <div id="container">
+      
+      <div id="left-column">
+        <div id="score">
+          <span>Score : <span id="score-value">0</span></span>
+          
+        </div>
+         
+        <div id="word-list">
+          <div id="word-list-title">
+          <p id="list-title">Word List</p>
+          <hr>
+        </div>
+          <div id="word-container">
+            <ul id="word-ul"></ul>
+          </div>
+        </div>
+      </div>
+      <div id="middle-column">
+        <div id="game-container">
+          <!-- <h1 id="header">Boggle!</h1> -->
+          <img
+            id="logo"
+            src="/static/Images/boggleLogo.png"
+            alt="Boggle Logo"
+          />
+          <div id="boggle">
+            <table>
+              <colgroup>
+                <col span="5" style="width: 20%" />
+              </colgroup>
+
+              {% for row in game_board %}
+              <tr>
+                {% for letter in row %}
+                <td id="die">{{letter}}</td>
+                {% endfor %}
+              </tr>
+              {% endfor %}
+            </table>
+            <form id="guess-form" method="POST">
+              <label for="guess"></label>
+              <input
+                autocomplete="off"
+                id="guess-input"
+                type="text"
+                name="word"
+                placeholder="Enter word here"
+                required
+              />
+              <button id="check-button" class="hidden">Check</button>
+              <div class="hidden" id="msg">hi</div>
+            </form>
+            <div id="msg-container">
+              
+            </div> 
+          </div>
+        </div>
+      </div>
+      <div id="right-column">
+        <div id="right-column-container">
+          <div id="high-score">
+            <span
+              >High Score :
+              <span id="high-score-value">
+                {{ session["highscore"] }}</span
+              ></span
+            >
+          </div>
+          <div id="tries">
+            <span> Tries : <span> {{ session["playtimes"] }} </span></span>
+          </div>
+          <div id="timer-container">
+            <span>Timer:</span>
+            <span id="timer"></span>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+
+    <script src="https://unpkg.com/jquery"></script>
+    <script src="https://unpkg.com/axios@0.19.0/dist/axios.js"></script>
+
+    <script src="/static/app.js"></script>
+    <script>
+      let boggle_game = new Boggle("board", 60);
+    </script>
+  </body>
+</html>
