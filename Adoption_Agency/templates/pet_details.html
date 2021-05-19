@@ -1,0 +1,63 @@
+{% extends 'base.html' %} {% block title %} Pet Details {% endblock %} {% block
+header %} Details for "{{pet.name}}" {% endblock %} {% block content %}
+
+<div class="container mb-5">
+  <div class="row">
+    <div class="col-6">
+        {% if pet.photo_url %}
+        <img
+          src="{{pet.photo_url}}"
+          class="img-thumbnail"
+          alt="photo_of_pet"
+        />
+        {% else %}
+        <img
+          src="/static/images/question-mark-768x768.png"
+          class="img-thumbnail"
+          alt="photo_of_pet"
+        />
+        {% endif %}
+    </div>
+    <div class="col-6">
+      <p class="display-5">Species : {{pet.species}}</p>
+      {% if pet.age %}
+      <p class="display-5">Age : {{pet.age}}</p>
+      {% else %}
+      <p class="display-5">Age: Unknown</p>
+      {% endif %}
+      <p class="display-5">Notes : {{pet.notes}}</p>
+      <p class="display-5">
+        Available: {% if pet.available %} Yes {% else %} No {% endif %}
+      </p>
+    </div>
+  </div>
+</div>
+<hr >
+<div class="container mt-5">
+    <h1 class='display-3 text-center'>Edit Pet Information for "{{pet.name}}"</h1>
+    <hr>
+    <div class="row justify-content-center">
+      <div class="col-md-8">
+        <form method="POST">
+          {{ form.hidden_tag() }} {% for field in form if field.widget.input_type
+          != 'hidden' %} {% if field.type == "BooleanField" %}
+          <div class="form-check">
+            {{field.label}}{{field(class_="form-check-input")}}
+          </div>
+          {% else %}
+          <div class="form-group">
+            {{field.label}} {{field(class_="form-control")}} {% for err in
+            field.errors %}
+            <small class="form-text text-danger"> {{err}} </small>
+            {% endfor %}
+          </div>
+  
+          {% endif %} {% endfor %}
+          <button class="btn btn-success btn-lg">Submit</button>
+          <a href="/" class="btn btn-outline-danger btn-lg">Cancel</a>
+        </form>
+      </div>
+    </div>
+  </div>
+
+{% endblock %}
