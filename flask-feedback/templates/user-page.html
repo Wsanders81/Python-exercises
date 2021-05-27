@@ -1,0 +1,66 @@
+{% extends 'base.html' %}
+{% block title %} User Info {% endblock %}
+{% block content %}
+<div id="login" class="container mt-5">
+<h1 class="display-3 text-center">Welcome!</h1>
+      <p class="lead text-center">Details for {{user.first_name}} {{user.last_name}}</p>
+<ul class="list-group">
+    <li class="list-group-item d-flex justify-content-between align-items-start">
+        <div class="ms-2 me-auto">
+            <div class="fw-bold">Username :</div>
+            {{user.username}}
+          </div>
+    </li>
+    <li class="list-group-item d-flex justify-content-between align-items-start">
+        <div class="ms-2 me-auto">
+            <div class="fw-bold">Email :</div>
+            {{user.email}}
+          </div>
+    </li>
+    <li class="list-group-item d-flex justify-content-between align-items-start">
+        <div class="ms-2 me-auto">
+            <div class="fw-bold">First Name :</div>
+            {{user.first_name}}
+          </div>
+    </li>
+    <li class="list-group-item d-flex justify-content-between align-items-start">
+        <div class="ms-2 me-auto">
+            <div class="fw-bold">Last Name :</div>
+            {{user.last_name}}
+          </div>
+    </li>
+    
+  </ul>
+</div>
+<div class="container-fluid mb-5" style="text-align: center;">
+<a  href="/users/{user.username}/feedback/add" class="btn btn-success">Add Feedback</a>
+<form action="/users/{{user.username}}/delete" method="POST">
+<button id="user-button" href="/users/{user.username}/delete" class="btn btn-outline-danger">Delete Account</button>
+</form>
+</div>
+  <hr style="padding: 0.5rem; color: rgb(6, 53, 141);">
+
+<div class="container mb-5">
+    <h1 class="display-4 text-center mb-4">Your Feedback</h1>
+    <ul class="list-group">
+    {% for msg in feedback %}
+    <li class="list-group-item d-flex justify-content-between align-items-start">
+        <div class="ms-2 me-auto">
+            <div class="fw-bold">Title: "{{msg.title}}"</div>
+            content : {{msg.content}}
+          </div>
+          {% if session['user_id'] ==  msg.username %}
+          <a href="/users/{{msg.id}}/update" class="btn btn-outline-success">Edit</a>
+          <form method="POST" action="/feedback/{{msg.id}}/delete" >
+          <button id="delete-feedback" class="btn btn-outline-danger">Delete</button>
+        </form>
+        {% endif %}
+        
+        
+    </li>
+    
+    {% endfor %}
+</ul>
+</div>
+
+{% endblock %}

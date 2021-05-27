@@ -1,0 +1,24 @@
+{% extends 'base.html' %} {% block title %} Feedback Form {% endblock %} {%
+block content %}
+<div id="login" class="container mt-5">
+  <h1 class="display-3 text-center">Feedback Form</h1>
+  <div class="row justify-content-center">
+    <div class="col-md-8">
+      <form method="POST">
+        {{form.hidden_tag()}} {% for field in form if field.widget.input_type !=
+        "hidden" %}
+        <div class="form-group">
+          {{field.label}}{{field(class_="form-control")}} {% for err in
+          field.errors%}
+          <small class="form-text text-danger">{{err}}</small>
+          {% endfor %}
+        </div>
+        {% endfor %}
+        <button id="submit-button" class="btn btn-outline-success btn-lg mt-4">
+          Submit
+        </button>
+      </form>
+    </div>
+  </div>
+</div>
+{% endblock %}
